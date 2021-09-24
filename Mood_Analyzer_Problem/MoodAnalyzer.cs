@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mood_Analyzer_Problem
 {/// <summary>
-/// Analyzing user mood based on happy or sad word 
+/// uc3 to show custom exception message to user 
 /// </summary>
     public class MoodAnalyzer
     {
@@ -20,7 +20,11 @@ namespace Mood_Analyzer_Problem
         {
             try
             {
-                if (message.ToLower().Contains("sad"))
+                if (message.ToLower().Equals(string.Empty))
+                {
+                    throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.EMPTY_TYPE_EXCEPTION, "Message should not be empty");
+                }
+                else if (message.ToLower().Contains("sad"))
                 {
                     return "sad";
                 }
@@ -31,9 +35,13 @@ namespace Mood_Analyzer_Problem
             }
             catch (NullReferenceException)
             {
-                return "happy";
+                throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.INVALID_MOOD_EXCEPTION,"Message should not be null");
             }
-            
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
         }
     }
 }
