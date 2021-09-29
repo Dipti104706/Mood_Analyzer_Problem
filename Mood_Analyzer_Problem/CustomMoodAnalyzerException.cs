@@ -12,7 +12,9 @@ namespace Mood_Analyzer_Problem
         public enum ExceptionType
         {
             INVALID_MOOD_EXCEPTION,
-            EMPTY_TYPE_EXCEPTION
+            EMPTY_TYPE_EXCEPTION,
+            CLASS_NOT_FOUND,
+            CONSTRUCTOR_NOT_FOUND,
         }
 
         public CustomMoodAnalyzerException(ExceptionType type,string massage):base(massage)
