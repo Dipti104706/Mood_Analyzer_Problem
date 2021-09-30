@@ -93,5 +93,94 @@ namespace MsTestforMoodAnalyzer
                 Assert.AreEqual(expected, ex.Message);
             }
         }
+
+        public void GivenMoodAnalyzerUsingReflectionReturnClassException()
+        {
+            string expected = "Class not found";
+            object obj = null;
+            try
+            {
+                //ACT
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.EmployeeWage", "EmployeeWage");
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+
+        //TC5 to get parameterized constructor by using Reflection
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyzerUsingReflectionReturnParameterizedConstructor()
+        {
+            string message = "I am in a happy mode";
+            MoodAnalyzer expected = new MoodAnalyzer();
+            object obj = null;
+            try
+            {
+                //ACT
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnalyzer",message);
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        
+        //Negative scenarios for TC5
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyzerParamerterizedReflectionReturnConstructorException()
+        {
+            string message = "I am in a happy mode";
+            string expected = "Constructor not found";
+            object obj = null;
+            try
+            {
+                //ACT
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnaly", message);
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        //Negative scenarios for TC5
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenMoodAnalyzerParamerterizedReflectionReturnClassException()
+        {
+            string message = "I am in a happy mode";
+            string expected = "Class not found";
+            object obj = null;
+            try
+            {
+                //ACT
+                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                obj = factory.CreateMoodAnalyzerParameterizedObject("EmployeeWage", "EmployeeWage",message);
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
 }

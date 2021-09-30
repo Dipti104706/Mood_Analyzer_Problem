@@ -13,8 +13,8 @@ namespace Mood_Analyzer_Problem
         {
             INVALID_MOOD_EXCEPTION,
             EMPTY_TYPE_EXCEPTION,
-            CLASS_NOT_FOUND,
-            CONSTRUCTOR_NOT_FOUND,
+            NO_SUCH_CLASS,
+            NO_SUCH_METHOD
         }
 
         public CustomMoodAnalyzerException(ExceptionType type,string massage):base(massage)
