@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mood_Analyzer_Problem
-{/// <summary>
-/// uc3 to show custom exception message to user 
-/// </summary>
+{
     public class MoodAnalyzer
     {
         public string message;

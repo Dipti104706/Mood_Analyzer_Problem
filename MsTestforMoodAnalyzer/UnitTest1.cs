@@ -13,7 +13,6 @@ namespace MsTestforMoodAnalyzer
         public void GivenNullShouldReturnCustomNullException()
         {
             //AAA Methology
-
             //Arrange
             string expected = "Message should not be null";
             MoodAnalyzer moodAnalyser = new MoodAnalyzer(null);
@@ -64,7 +63,7 @@ namespace MsTestforMoodAnalyzer
             {
                 //ACT
                 //
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.MoodAnalyzer", "MoodAnalyzer");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -84,7 +83,7 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.MoodAnalyzer", "MoodAnaly");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -101,7 +100,7 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.EmployeeWage", "EmployeeWage");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -111,7 +110,7 @@ namespace MsTestforMoodAnalyzer
             }
         }
 
-        //TC5 to get parameterized constructor by using Reflection
+        //TC5.1 to get parameterized constructor by using Reflection
         [TestMethod]
         [TestCategory("Reflection")]
         public void GivenMoodAnalyzerUsingReflectionReturnParameterizedConstructor()
@@ -122,7 +121,7 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnalyzer",message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -132,7 +131,7 @@ namespace MsTestforMoodAnalyzer
             }
         }
         
-        //Negative scenarios for TC5
+        //Negative scenarios for TC5.2
         [TestMethod]
         [TestCategory("Reflection")]
         public void GivenMoodAnalyzerParamerterizedReflectionReturnConstructorException()
@@ -143,7 +142,7 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnaly", message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -157,7 +156,7 @@ namespace MsTestforMoodAnalyzer
                 Assert.AreEqual(expected, ex.Message);
             }
         }
-        //Negative scenarios for TC5
+        //Negative scenarios for TC5.3
         [TestMethod]
         [TestCategory("Reflection")]
         public void GivenMoodAnalyzerParamerterizedReflectionReturnClassException()
@@ -168,7 +167,7 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerFactory factory = new ModeAnalyzerFactory();
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("EmployeeWage", "EmployeeWage",message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -181,6 +180,48 @@ namespace MsTestforMoodAnalyzer
                 //ASSERT
                 Assert.AreEqual(expected, ex.Message);
             }
+        }
+        /// TC6.1-Using Reflection-Invoke Method
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void Given_MoodAnalyzer_Reflection_Return_Method()
+        {
+            string expected = "happy";
+            string actual = "";
+            try
+            {
+                //ACT
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
+                actual = factory.InvokeAnalyzer("I am in happy mood", "AnalyzeMood");
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            //ASSERT
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// TC6.2-Giving improper method return happy
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void GivenInvalidmethodReturnhappy()
+        {
+            string expected = "happy";
+            string actual = "";
+            try
+            {
+                //ACT
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
+                actual = factory.InvokeAnalyzer("I am in happy mood", "Analyze");
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, ex.Message);
+            }       
         }
     }
 }

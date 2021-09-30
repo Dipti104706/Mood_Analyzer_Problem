@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace Mood_Analyzer_Problem
 {/// <summary>
-/// UC5 to create object by using reflector and use parameterized constructor
+/// UC6 to invoke analyzemood() by using reflector
 /// </summary>
-    public class ModeAnalyzerFactory
+    public class ModeAnalyzerReflector
     {
         public object CreateMoodAnalyzerObject(string className, string constructor)
         {
@@ -68,6 +68,28 @@ namespace Mood_Analyzer_Problem
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+        //Uc-6 invoke MoodAnalyze() using reflection
+        public string InvokeAnalyzer(string message, string methodName)
+        {
+            try
+            {
+                //Type takes the class name
+                Type type = typeof(MoodAnalyzer);
+                //Listing all methods present in this class
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                //creating object
+                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
+                //creating object ,calling parameterized reflection meythod to pass details
+                object moodAnalyserObject = factory.CreateMoodAnalyzerParameterizedObject("Mood_Analyzer_Problem.MoodAnalyzer", "MoodAnalyzer", message);
+                //
+                object info = methodInfo.Invoke(moodAnalyserObject, null);
+                return info.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, "happy");
             }
         }
     }
