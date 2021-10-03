@@ -33,7 +33,7 @@ namespace Mood_Analyzer_Problem
             }
             else
             {
-                throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, "Constructor not found");
+                throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
             }
         }
 
@@ -57,13 +57,17 @@ namespace Mood_Analyzer_Problem
                     }
                     else
                     {
-                        throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, "Constructor not found");
+                        throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
                     }
                 }
                 else
                 {
                     throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, "Class not found");
                 }
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.NO_SUCH_CONSTRUCTOR, ex.Message);
             }
             catch (Exception ex)
             {

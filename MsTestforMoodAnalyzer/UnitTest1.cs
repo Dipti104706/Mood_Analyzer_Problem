@@ -151,11 +151,6 @@ namespace MsTestforMoodAnalyzer
                 //ASSERT
                 Assert.AreEqual(expected, ex.Message);
             }
-            catch (Exception ex)
-            {
-                //ASSERT
-                Assert.AreEqual(expected, ex.Message);
-            }
         }
         //Negative scenarios for TC5
         [TestMethod]
@@ -172,11 +167,6 @@ namespace MsTestforMoodAnalyzer
                 obj = factory.CreateMoodAnalyzerParameterizedObject("EmployeeWage", "EmployeeWage",message);
             }
             catch (CustomMoodAnalyzerException ex)
-            {
-                //ASSERT
-                Assert.AreEqual(expected, ex.Message);
-            }
-            catch (Exception ex)
             {
                 //ASSERT
                 Assert.AreEqual(expected, ex.Message);
