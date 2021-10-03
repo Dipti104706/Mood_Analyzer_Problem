@@ -7,6 +7,15 @@ namespace MsTestforMoodAnalyzer
     [TestClass]  
     public class MsTestForMoodAnalyzer
     {
+        ModeAnalyzerReflector factory = null;
+        [TestMethod]
+        [TestInitialize]
+        //It is used in every test case of reflection, so initialize in the top
+        public void SetUp()
+        {
+            factory = new ModeAnalyzerReflector();
+        }
+
         //TC-3 given null will return customized null exception message
         [TestMethod]
         [TestCategory("Customexception")]
@@ -62,8 +71,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                //
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.MoodAnalyzer", "MoodAnalyzer");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -83,7 +90,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.MoodAnalyzer", "MoodAnaly");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -100,7 +106,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerObject("Mood_Analyzer_Problem.EmployeeWage", "EmployeeWage");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -121,7 +126,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnalyzer",message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -142,7 +146,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("MoodAnalyzer", "MoodAnaly", message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -167,7 +170,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 obj = factory.CreateMoodAnalyzerParameterizedObject("EmployeeWage", "EmployeeWage",message);
             }
             catch (CustomMoodAnalyzerException ex)
@@ -181,8 +183,7 @@ namespace MsTestforMoodAnalyzer
                 Assert.AreEqual(expected, ex.Message);
             }
         }
-        /// TC6.1-Using Reflection-Invoke Method
-        /// </summary>
+        // TC6.1-Using Reflection-Invoke Method
         [TestMethod]
         [TestCategory("Reflection")]
         public void Given_MoodAnalyzer_Reflection_Return_Method()
@@ -192,7 +193,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 actual = factory.InvokeAnalyzer("I am in happy mood", "AnalyzeMood");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -203,8 +203,7 @@ namespace MsTestforMoodAnalyzer
             Assert.AreEqual(expected, actual);
         }
 
-        /// TC6.2-Giving improper method return happy
-        /// </summary>
+        // TC6.2-Giving improper method return happy
         [TestMethod]
         [TestCategory("Reflection")]
         public void GivenInvalidmethodReturnhappy()
@@ -214,7 +213,6 @@ namespace MsTestforMoodAnalyzer
             try
             {
                 //ACT
-                ModeAnalyzerReflector factory = new ModeAnalyzerReflector();
                 actual = factory.InvokeAnalyzer("I am in happy mood", "Analyze");
             }
             catch (CustomMoodAnalyzerException ex)
@@ -222,6 +220,63 @@ namespace MsTestforMoodAnalyzer
                 //ASSERT
                 Assert.AreEqual(expected, ex.Message);
             }       
+        }
+
+        //TC-7.1 set happy return happy
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void Reflection_Return_Set_Feild_Happy_Message()
+        {
+            string expected = "happy";
+            string actual = "";
+            try
+            {
+                //ACT
+                actual = factory.SetField("happy", "message");
+            }
+            catch (CustomMoodAnalyzerException)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, actual);
+            }    
+        }
+
+        //TC-7.2 negative scenario
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void ImproperSetfieldReturnNoSuchField()
+        {
+            string expected = "Field is not found";
+            string actual = "";
+            try
+            {
+                //ACT
+                actual = factory.SetField("happy", "messa");
+            }
+            catch (CustomMoodAnalyzerException)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, actual);
+            }
+        }
+
+        //TC-7.3 negative scenario
+        [TestMethod]
+        [TestCategory("Reflection")]
+        public void SetNullReturnEmptyMessage()
+        {
+            string expected = "Message should not be null";
+            string actual = "";
+            try
+            {
+                //ACT
+                actual = factory.SetField(null, "message");
+            }
+            catch (CustomMoodAnalyzerException)
+            {
+                //ASSERT
+                Assert.AreEqual(expected, actual);
+            }
         }
     }
 }
