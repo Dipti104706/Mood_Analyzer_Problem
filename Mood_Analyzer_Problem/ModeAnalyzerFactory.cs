@@ -8,6 +8,7 @@ namespace Mood_Analyzer_Problem
 /// </summary>
     public class ModeAnalyzerReflector
     {
+        //UC4 use default constructor by reflection
         public object CreateMoodAnalyzerObject(string className, string constructor)
         {
             string pattern = "." + constructor + "$";
@@ -97,17 +98,23 @@ namespace Mood_Analyzer_Problem
         }
 
         //UC7 change mood dynamically 
+        //field-variable
         public string SetField(string message, string fieldName)
         {
             try
             {
                 MoodAnalyzer moodAnalyser = new MoodAnalyzer();
+                //Type takes the class name
                 Type type = typeof(MoodAnalyzer);
+                //BindingFlags-it bind all variable which required in the search process it may be public or instance
+                //BindingFlags.Public-it includes all public members in the search
+                //GetField-it search for the field with binding constraints
                 FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
                 if (message == null)
                 {
                     throw new CustomMoodAnalyzerException(CustomMoodAnalyzerException.ExceptionType.EMPTY_MESSAGE, "Message should not be null");
                 }
+                //SetValue-it sets the value of the field(object)
                 fieldInfo.SetValue(moodAnalyser, message);
                 return moodAnalyser.message;
             }

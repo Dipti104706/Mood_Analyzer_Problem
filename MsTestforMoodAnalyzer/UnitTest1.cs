@@ -253,10 +253,10 @@ namespace MsTestforMoodAnalyzer
                 //ACT
                 actual = factory.SetField("happy", "messa");
             }
-            catch (CustomMoodAnalyzerException)
+            catch (CustomMoodAnalyzerException ex)
             {
                 //ASSERT
-                Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, ex.Message);
             }
         }
 
@@ -272,10 +272,10 @@ namespace MsTestforMoodAnalyzer
                 //ACT
                 actual = factory.SetField(null, "message");
             }
-            catch (CustomMoodAnalyzerException)
+            catch (CustomMoodAnalyzerException ex)
             {
                 //ASSERT
-                Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, ex.Message);
             }
         }
     }
